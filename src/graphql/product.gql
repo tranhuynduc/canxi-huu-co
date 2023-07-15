@@ -1,0 +1,11 @@
+query GetProducts {
+  productCollection {
+    items {
+      title
+      description
+      image {
+        url
+      }
+    }
+  }
+}

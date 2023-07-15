@@ -8,29 +8,10 @@ type MenuItem = Required<MenuProps>['items'][number]
 
 export const routes = [
   {
-    label: 'Khảo sát',
-    key: 'khao-sat',
-    href: ROUTES.surveys,
-    icon: <MailOutlined />,
-    children: [
-      {
-        label: '7 loại trí thông minh',
-        key: '7-loai-tri-thong-minh',
-        href: ROUTES.surveys,
-      },
-      {
-        label: 'Chỉ số hạnh phúc',
-        key: 'chi-so-hanh-phuc',
-        href: ROUTES.linkedSurvers,
-      },
-    ],
-  },
-  {
-    label: 'Reports',
-    key: 'reports',
-    href: ROUTES.reports,
-    icon: <AppstoreOutlined />,
-  },
+    label: 'Sản phẩm',
+    key: 'san-pham',
+    href: ROUTES.products,
+  }
 ]
 
 interface GetMenuItemProps {

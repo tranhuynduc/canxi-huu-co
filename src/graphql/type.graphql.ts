@@ -169,6 +169,7 @@ export type AssetFilter = {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  productCollection?: Maybe<ProductCollection>;
 };
 
 
@@ -178,6 +179,30 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
+
+
+export type AssetLinkingCollectionsProductCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AssetLinkingCollectionsProductCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export enum AssetLinkingCollectionsProductCollectionOrder {
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
 
 export enum AssetOrder {
   ContentTypeAsc = 'contentType_ASC',
@@ -354,60 +379,69 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>;
 };
 
-/** Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry) */
-export type Industry = Entry & {
-  __typename?: 'Industry';
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type Product = Entry & {
+  __typename?: 'Product';
   contentfulMetadata: ContentfulMetadata;
-  jobsCollection?: Maybe<IndustryJobsCollection>;
-  linkedFrom?: Maybe<IndustryLinkingCollections>;
+  description?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Asset>;
+  linkedFrom?: Maybe<ProductLinkingCollections>;
   slug?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry) */
-export type IndustryJobsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type ProductDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<IndustryJobsCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<JobsFilter>;
 };
 
 
-/** Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry) */
-export type IndustryLinkedFromArgs = {
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type ProductImageArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type ProductLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry) */
-export type IndustrySlugArgs = {
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type ProductSlugArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry) */
-export type IndustryTitleArgs = {
+/** Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product) */
+export type ProductTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type IndustryCollection = {
-  __typename?: 'IndustryCollection';
-  items: Array<Maybe<Industry>>;
+export type ProductCollection = {
+  __typename?: 'ProductCollection';
+  items: Array<Maybe<Product>>;
   limit: Scalars['Int']['output'];
   skip: Scalars['Int']['output'];
   total: Scalars['Int']['output'];
 };
 
-export type IndustryFilter = {
-  AND?: InputMaybe<Array<InputMaybe<IndustryFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<IndustryFilter>>>;
+export type ProductFilter = {
+  AND?: InputMaybe<Array<InputMaybe<ProductFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<ProductFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  jobs?: InputMaybe<CfJobsNestedFilter>;
-  jobsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  description_not?: InputMaybe<Scalars['String']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  image_exists?: InputMaybe<Scalars['Boolean']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   slug_contains?: InputMaybe<Scalars['String']['input']>;
   slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -425,787 +459,20 @@ export type IndustryFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-/** Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup) */
-export type IndustryGroup = Entry & {
-  __typename?: 'IndustryGroup';
-  contentfulMetadata: ContentfulMetadata;
-  industriesCollection?: Maybe<IndustryGroupIndustriesCollection>;
-  linkedFrom?: Maybe<IndustryGroupLinkingCollections>;
-  slug?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup) */
-export type IndustryGroupIndustriesCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<IndustryGroupIndustriesCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<IndustryFilter>;
-};
-
-
-/** Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup) */
-export type IndustryGroupLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup) */
-export type IndustryGroupSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup) */
-export type IndustryGroupTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type IndustryGroupCollection = {
-  __typename?: 'IndustryGroupCollection';
-  items: Array<Maybe<IndustryGroup>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type IndustryGroupFilter = {
-  AND?: InputMaybe<Array<InputMaybe<IndustryGroupFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<IndustryGroupFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  industries?: InputMaybe<CfIndustryNestedFilter>;
-  industriesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type IndustryGroupIndustriesCollection = {
-  __typename?: 'IndustryGroupIndustriesCollection';
-  items: Array<Maybe<Industry>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum IndustryGroupIndustriesCollectionOrder {
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export type IndustryGroupLinkingCollections = {
-  __typename?: 'IndustryGroupLinkingCollections';
+export type ProductLinkingCollections = {
+  __typename?: 'ProductLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
 };
 
 
-export type IndustryGroupLinkingCollectionsEntryCollectionArgs = {
+export type ProductLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export enum IndustryGroupOrder {
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export type IndustryJobsCollection = {
-  __typename?: 'IndustryJobsCollection';
-  items: Array<Maybe<Jobs>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum IndustryJobsCollectionOrder {
-  CommunicationAsc = 'communication_ASC',
-  CommunicationDesc = 'communication_DESC',
-  InnerAsc = 'inner_ASC',
-  InnerDesc = 'inner_DESC',
-  LogicAsc = 'logic_ASC',
-  LogicDesc = 'logic_DESC',
-  MoveAsc = 'move_ASC',
-  MoveDesc = 'move_DESC',
-  MusicAsc = 'music_ASC',
-  MusicDesc = 'music_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SpaceAsc = 'space_ASC',
-  SpaceDesc = 'space_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
-  WordAsc = 'word_ASC',
-  WordDesc = 'word_DESC'
-}
-
-export type IndustryLinkingCollections = {
-  __typename?: 'IndustryLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  industryGroupCollection?: Maybe<IndustryGroupCollection>;
-};
-
-
-export type IndustryLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type IndustryLinkingCollectionsIndustryGroupCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<IndustryLinkingCollectionsIndustryGroupCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum IndustryLinkingCollectionsIndustryGroupCollectionOrder {
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export enum IndustryOrder {
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type Jobs = Entry & {
-  __typename?: 'Jobs';
-  communication?: Maybe<Scalars['Int']['output']>;
-  contentfulMetadata: ContentfulMetadata;
-  inner?: Maybe<Scalars['Int']['output']>;
-  linkedFrom?: Maybe<JobsLinkingCollections>;
-  logic?: Maybe<Scalars['Int']['output']>;
-  move?: Maybe<Scalars['Int']['output']>;
-  music?: Maybe<Scalars['Int']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  space?: Maybe<Scalars['Int']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-  word?: Maybe<Scalars['Int']['output']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsCommunicationArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsInnerArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsLogicArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsMoveArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsMusicArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsSpaceArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs) */
-export type JobsWordArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type JobsCollection = {
-  __typename?: 'JobsCollection';
-  items: Array<Maybe<Jobs>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type JobsFilter = {
-  AND?: InputMaybe<Array<InputMaybe<JobsFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<JobsFilter>>>;
-  communication?: InputMaybe<Scalars['Int']['input']>;
-  communication_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  communication_gt?: InputMaybe<Scalars['Int']['input']>;
-  communication_gte?: InputMaybe<Scalars['Int']['input']>;
-  communication_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  communication_lt?: InputMaybe<Scalars['Int']['input']>;
-  communication_lte?: InputMaybe<Scalars['Int']['input']>;
-  communication_not?: InputMaybe<Scalars['Int']['input']>;
-  communication_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  inner?: InputMaybe<Scalars['Int']['input']>;
-  inner_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  inner_gt?: InputMaybe<Scalars['Int']['input']>;
-  inner_gte?: InputMaybe<Scalars['Int']['input']>;
-  inner_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  inner_lt?: InputMaybe<Scalars['Int']['input']>;
-  inner_lte?: InputMaybe<Scalars['Int']['input']>;
-  inner_not?: InputMaybe<Scalars['Int']['input']>;
-  inner_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  logic?: InputMaybe<Scalars['Int']['input']>;
-  logic_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  logic_gt?: InputMaybe<Scalars['Int']['input']>;
-  logic_gte?: InputMaybe<Scalars['Int']['input']>;
-  logic_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  logic_lt?: InputMaybe<Scalars['Int']['input']>;
-  logic_lte?: InputMaybe<Scalars['Int']['input']>;
-  logic_not?: InputMaybe<Scalars['Int']['input']>;
-  logic_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  move?: InputMaybe<Scalars['Int']['input']>;
-  move_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  move_gt?: InputMaybe<Scalars['Int']['input']>;
-  move_gte?: InputMaybe<Scalars['Int']['input']>;
-  move_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  move_lt?: InputMaybe<Scalars['Int']['input']>;
-  move_lte?: InputMaybe<Scalars['Int']['input']>;
-  move_not?: InputMaybe<Scalars['Int']['input']>;
-  move_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  music?: InputMaybe<Scalars['Int']['input']>;
-  music_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  music_gt?: InputMaybe<Scalars['Int']['input']>;
-  music_gte?: InputMaybe<Scalars['Int']['input']>;
-  music_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  music_lt?: InputMaybe<Scalars['Int']['input']>;
-  music_lte?: InputMaybe<Scalars['Int']['input']>;
-  music_not?: InputMaybe<Scalars['Int']['input']>;
-  music_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  space?: InputMaybe<Scalars['Int']['input']>;
-  space_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  space_gt?: InputMaybe<Scalars['Int']['input']>;
-  space_gte?: InputMaybe<Scalars['Int']['input']>;
-  space_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  space_lt?: InputMaybe<Scalars['Int']['input']>;
-  space_lte?: InputMaybe<Scalars['Int']['input']>;
-  space_not?: InputMaybe<Scalars['Int']['input']>;
-  space_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  word?: InputMaybe<Scalars['Int']['input']>;
-  word_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  word_gt?: InputMaybe<Scalars['Int']['input']>;
-  word_gte?: InputMaybe<Scalars['Int']['input']>;
-  word_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  word_lt?: InputMaybe<Scalars['Int']['input']>;
-  word_lte?: InputMaybe<Scalars['Int']['input']>;
-  word_not?: InputMaybe<Scalars['Int']['input']>;
-  word_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-};
-
-export type JobsLinkingCollections = {
-  __typename?: 'JobsLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  industryCollection?: Maybe<IndustryCollection>;
-};
-
-
-export type JobsLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type JobsLinkingCollectionsIndustryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<JobsLinkingCollectionsIndustryCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum JobsLinkingCollectionsIndustryCollectionOrder {
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export enum JobsOrder {
-  CommunicationAsc = 'communication_ASC',
-  CommunicationDesc = 'communication_DESC',
-  InnerAsc = 'inner_ASC',
-  InnerDesc = 'inner_DESC',
-  LogicAsc = 'logic_ASC',
-  LogicDesc = 'logic_DESC',
-  MoveAsc = 'move_ASC',
-  MoveDesc = 'move_DESC',
-  MusicAsc = 'music_ASC',
-  MusicDesc = 'music_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SpaceAsc = 'space_ASC',
-  SpaceDesc = 'space_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
-  WordAsc = 'word_ASC',
-  WordDesc = 'word_DESC'
-}
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswer = Entry & {
-  __typename?: 'LinkedAnswer';
-  contentfulMetadata: ContentfulMetadata;
-  id?: Maybe<Scalars['String']['output']>;
-  isEnd?: Maybe<Scalars['Boolean']['output']>;
-  linkedFrom?: Maybe<LinkedAnswerLinkingCollections>;
-  nextQuestion?: Maybe<LinkedQuestion>;
-  slug?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerIdArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerIsEndArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerNextQuestionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<LinkedQuestionFilter>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer) */
-export type LinkedAnswerTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type LinkedAnswerCollection = {
-  __typename?: 'LinkedAnswerCollection';
-  items: Array<Maybe<LinkedAnswer>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type LinkedAnswerFilter = {
-  AND?: InputMaybe<Array<InputMaybe<LinkedAnswerFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<LinkedAnswerFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  id_contains?: InputMaybe<Scalars['String']['input']>;
-  id_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  id_not?: InputMaybe<Scalars['String']['input']>;
-  id_not_contains?: InputMaybe<Scalars['String']['input']>;
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  isEnd?: InputMaybe<Scalars['Boolean']['input']>;
-  isEnd_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  isEnd_not?: InputMaybe<Scalars['Boolean']['input']>;
-  nextQuestion?: InputMaybe<CfLinkedQuestionNestedFilter>;
-  nextQuestion_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type LinkedAnswerLinkingCollections = {
-  __typename?: 'LinkedAnswerLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  linkedQuestionCollection?: Maybe<LinkedQuestionCollection>;
-};
-
-
-export type LinkedAnswerLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type LinkedAnswerLinkingCollectionsLinkedQuestionCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<LinkedAnswerLinkingCollectionsLinkedQuestionCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum LinkedAnswerLinkingCollectionsLinkedQuestionCollectionOrder {
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IsStartAsc = 'isStart_ASC',
-  IsStartDesc = 'isStart_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export enum LinkedAnswerOrder {
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IsEndAsc = 'isEnd_ASC',
-  IsEndDesc = 'isEnd_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestion = Entry & {
-  __typename?: 'LinkedQuestion';
-  answersCollection?: Maybe<LinkedQuestionAnswersCollection>;
-  categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  contentfulMetadata: ContentfulMetadata;
-  id?: Maybe<Scalars['String']['output']>;
-  isStart?: Maybe<Scalars['Boolean']['output']>;
-  linkedFrom?: Maybe<LinkedQuestionLinkingCollections>;
-  slug?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionAnswersCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<LinkedQuestionAnswersCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<LinkedAnswerFilter>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionCategoriesArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionIdArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionIsStartArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion) */
-export type LinkedQuestionTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type LinkedQuestionAnswersCollection = {
-  __typename?: 'LinkedQuestionAnswersCollection';
-  items: Array<Maybe<LinkedAnswer>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum LinkedQuestionAnswersCollectionOrder {
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IsEndAsc = 'isEnd_ASC',
-  IsEndDesc = 'isEnd_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export type LinkedQuestionCollection = {
-  __typename?: 'LinkedQuestionCollection';
-  items: Array<Maybe<LinkedQuestion>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type LinkedQuestionFilter = {
-  AND?: InputMaybe<Array<InputMaybe<LinkedQuestionFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<LinkedQuestionFilter>>>;
-  answers?: InputMaybe<CfLinkedAnswerNestedFilter>;
-  answersCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  categories_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  id_contains?: InputMaybe<Scalars['String']['input']>;
-  id_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  id_not?: InputMaybe<Scalars['String']['input']>;
-  id_not_contains?: InputMaybe<Scalars['String']['input']>;
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  isStart?: InputMaybe<Scalars['Boolean']['input']>;
-  isStart_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  isStart_not?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type LinkedQuestionLinkingCollections = {
-  __typename?: 'LinkedQuestionLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  linkedAnswerCollection?: Maybe<LinkedAnswerCollection>;
-};
-
-
-export type LinkedQuestionLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type LinkedQuestionLinkingCollectionsLinkedAnswerCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<LinkedQuestionLinkingCollectionsLinkedAnswerCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum LinkedQuestionLinkingCollectionsLinkedAnswerCollectionOrder {
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IsEndAsc = 'isEnd_ASC',
-  IsEndDesc = 'isEnd_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
-}
-
-export enum LinkedQuestionOrder {
-  IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC',
-  IsStartAsc = 'isStart_ASC',
-  IsStartDesc = 'isStart_DESC',
+export enum ProductOrder {
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1225,18 +492,8 @@ export type Query = {
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
   entryCollection?: Maybe<EntryCollection>;
-  industry?: Maybe<Industry>;
-  industryCollection?: Maybe<IndustryCollection>;
-  industryGroup?: Maybe<IndustryGroup>;
-  industryGroupCollection?: Maybe<IndustryGroupCollection>;
-  jobs?: Maybe<Jobs>;
-  jobsCollection?: Maybe<JobsCollection>;
-  linkedAnswer?: Maybe<LinkedAnswer>;
-  linkedAnswerCollection?: Maybe<LinkedAnswerCollection>;
-  linkedQuestion?: Maybe<LinkedQuestion>;
-  linkedQuestionCollection?: Maybe<LinkedQuestionCollection>;
-  question?: Maybe<Question>;
-  questionCollection?: Maybe<QuestionCollection>;
+  product?: Maybe<Product>;
+  productCollection?: Maybe<ProductCollection>;
 };
 
 
@@ -1267,246 +524,21 @@ export type QueryEntryCollectionArgs = {
 };
 
 
-export type QueryIndustryArgs = {
+export type QueryProductArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-export type QueryIndustryCollectionArgs = {
+export type QueryProductCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<IndustryOrder>>>;
+  order?: InputMaybe<Array<InputMaybe<ProductOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<IndustryFilter>;
+  where?: InputMaybe<ProductFilter>;
 };
-
-
-export type QueryIndustryGroupArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryIndustryGroupCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<IndustryGroupOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<IndustryGroupFilter>;
-};
-
-
-export type QueryJobsArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryJobsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<JobsOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<JobsFilter>;
-};
-
-
-export type QueryLinkedAnswerArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryLinkedAnswerCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<LinkedAnswerOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<LinkedAnswerFilter>;
-};
-
-
-export type QueryLinkedQuestionArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryLinkedQuestionCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<LinkedQuestionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<LinkedQuestionFilter>;
-};
-
-
-export type QueryQuestionArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryQuestionCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<QuestionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<QuestionFilter>;
-};
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type Question = Entry & {
-  __typename?: 'Question';
-  answers?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  contentfulMetadata: ContentfulMetadata;
-  enable?: Maybe<Scalars['Boolean']['output']>;
-  linkedFrom?: Maybe<QuestionLinkingCollections>;
-  slug?: Maybe<Scalars['String']['output']>;
-  sys: Sys;
-  title?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  want?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionAnswersArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionEnableArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionSlugArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionTitleArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionTypeArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question) */
-export type QuestionWantArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type QuestionCollection = {
-  __typename?: 'QuestionCollection';
-  items: Array<Maybe<Question>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type QuestionFilter = {
-  AND?: InputMaybe<Array<InputMaybe<QuestionFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<QuestionFilter>>>;
-  answers_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  answers_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  answers_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  answers_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  enable?: InputMaybe<Scalars['Boolean']['input']>;
-  enable_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  enable_not?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  type?: InputMaybe<Scalars['String']['input']>;
-  type_contains?: InputMaybe<Scalars['String']['input']>;
-  type_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  type_not?: InputMaybe<Scalars['String']['input']>;
-  type_not_contains?: InputMaybe<Scalars['String']['input']>;
-  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  want?: InputMaybe<Scalars['String']['input']>;
-  want_contains?: InputMaybe<Scalars['String']['input']>;
-  want_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  want_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  want_not?: InputMaybe<Scalars['String']['input']>;
-  want_not_contains?: InputMaybe<Scalars['String']['input']>;
-  want_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type QuestionLinkingCollections = {
-  __typename?: 'QuestionLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-};
-
-
-export type QuestionLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum QuestionOrder {
-  EnableAsc = 'enable_ASC',
-  EnableDesc = 'enable_DESC',
-  SlugAsc = 'slug_ASC',
-  SlugDesc = 'slug_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
-  TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
-  TypeAsc = 'type_ASC',
-  TypeDesc = 'type_DESC',
-  WantAsc = 'want_ASC',
-  WantDesc = 'want_DESC'
-}
 
 export type Sys = {
   __typename?: 'Sys';
@@ -1553,178 +585,4 @@ export type SysFilter = {
   publishedVersion_lte?: InputMaybe<Scalars['Float']['input']>;
   publishedVersion_not?: InputMaybe<Scalars['Float']['input']>;
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
-};
-
-export type CfIndustryNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfIndustryNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfIndustryNestedFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  jobsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type CfJobsNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfJobsNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfJobsNestedFilter>>>;
-  communication?: InputMaybe<Scalars['Int']['input']>;
-  communication_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  communication_gt?: InputMaybe<Scalars['Int']['input']>;
-  communication_gte?: InputMaybe<Scalars['Int']['input']>;
-  communication_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  communication_lt?: InputMaybe<Scalars['Int']['input']>;
-  communication_lte?: InputMaybe<Scalars['Int']['input']>;
-  communication_not?: InputMaybe<Scalars['Int']['input']>;
-  communication_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  inner?: InputMaybe<Scalars['Int']['input']>;
-  inner_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  inner_gt?: InputMaybe<Scalars['Int']['input']>;
-  inner_gte?: InputMaybe<Scalars['Int']['input']>;
-  inner_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  inner_lt?: InputMaybe<Scalars['Int']['input']>;
-  inner_lte?: InputMaybe<Scalars['Int']['input']>;
-  inner_not?: InputMaybe<Scalars['Int']['input']>;
-  inner_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  logic?: InputMaybe<Scalars['Int']['input']>;
-  logic_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  logic_gt?: InputMaybe<Scalars['Int']['input']>;
-  logic_gte?: InputMaybe<Scalars['Int']['input']>;
-  logic_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  logic_lt?: InputMaybe<Scalars['Int']['input']>;
-  logic_lte?: InputMaybe<Scalars['Int']['input']>;
-  logic_not?: InputMaybe<Scalars['Int']['input']>;
-  logic_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  move?: InputMaybe<Scalars['Int']['input']>;
-  move_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  move_gt?: InputMaybe<Scalars['Int']['input']>;
-  move_gte?: InputMaybe<Scalars['Int']['input']>;
-  move_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  move_lt?: InputMaybe<Scalars['Int']['input']>;
-  move_lte?: InputMaybe<Scalars['Int']['input']>;
-  move_not?: InputMaybe<Scalars['Int']['input']>;
-  move_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  music?: InputMaybe<Scalars['Int']['input']>;
-  music_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  music_gt?: InputMaybe<Scalars['Int']['input']>;
-  music_gte?: InputMaybe<Scalars['Int']['input']>;
-  music_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  music_lt?: InputMaybe<Scalars['Int']['input']>;
-  music_lte?: InputMaybe<Scalars['Int']['input']>;
-  music_not?: InputMaybe<Scalars['Int']['input']>;
-  music_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  space?: InputMaybe<Scalars['Int']['input']>;
-  space_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  space_gt?: InputMaybe<Scalars['Int']['input']>;
-  space_gte?: InputMaybe<Scalars['Int']['input']>;
-  space_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  space_lt?: InputMaybe<Scalars['Int']['input']>;
-  space_lte?: InputMaybe<Scalars['Int']['input']>;
-  space_not?: InputMaybe<Scalars['Int']['input']>;
-  space_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  word?: InputMaybe<Scalars['Int']['input']>;
-  word_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  word_gt?: InputMaybe<Scalars['Int']['input']>;
-  word_gte?: InputMaybe<Scalars['Int']['input']>;
-  word_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  word_lt?: InputMaybe<Scalars['Int']['input']>;
-  word_lte?: InputMaybe<Scalars['Int']['input']>;
-  word_not?: InputMaybe<Scalars['Int']['input']>;
-  word_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-};
-
-export type CfLinkedAnswerNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfLinkedAnswerNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfLinkedAnswerNestedFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  id_contains?: InputMaybe<Scalars['String']['input']>;
-  id_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  id_not?: InputMaybe<Scalars['String']['input']>;
-  id_not_contains?: InputMaybe<Scalars['String']['input']>;
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  isEnd?: InputMaybe<Scalars['Boolean']['input']>;
-  isEnd_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  isEnd_not?: InputMaybe<Scalars['Boolean']['input']>;
-  nextQuestion_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type CfLinkedQuestionNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfLinkedQuestionNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfLinkedQuestionNestedFilter>>>;
-  answersCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  categories_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  categories_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  id_contains?: InputMaybe<Scalars['String']['input']>;
-  id_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  id_not?: InputMaybe<Scalars['String']['input']>;
-  id_not_contains?: InputMaybe<Scalars['String']['input']>;
-  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  isStart?: InputMaybe<Scalars['Boolean']['input']>;
-  isStart_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  isStart_not?: InputMaybe<Scalars['Boolean']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  slug_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  slug_not?: InputMaybe<Scalars['String']['input']>;
-  slug_not_contains?: InputMaybe<Scalars['String']['input']>;
-  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
