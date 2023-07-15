@@ -1,0 +1,1226 @@
+"""Represents a binary file in a space. An asset can be any file type."""
+type Asset {
+  contentType(locale: String): String
+  contentfulMetadata: ContentfulMetadata!
+  description(locale: String): String
+  fileName(locale: String): String
+  height(locale: String): Int
+  linkedFrom(allowedLocales: [String]): AssetLinkingCollections
+  size(locale: String): Int
+  sys: Sys!
+  title(locale: String): String
+  url(locale: String, transform: ImageTransformOptions): String
+  width(locale: String): Int
+}
+
+type AssetCollection {
+  items: [Asset]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input AssetFilter {
+  AND: [AssetFilter]
+  OR: [AssetFilter]
+  contentType: String
+  contentType_contains: String
+  contentType_exists: Boolean
+  contentType_in: [String]
+  contentType_not: String
+  contentType_not_contains: String
+  contentType_not_in: [String]
+  contentfulMetadata: ContentfulMetadataFilter
+  description: String
+  description_contains: String
+  description_exists: Boolean
+  description_in: [String]
+  description_not: String
+  description_not_contains: String
+  description_not_in: [String]
+  fileName: String
+  fileName_contains: String
+  fileName_exists: Boolean
+  fileName_in: [String]
+  fileName_not: String
+  fileName_not_contains: String
+  fileName_not_in: [String]
+  height: Int
+  height_exists: Boolean
+  height_gt: Int
+  height_gte: Int
+  height_in: [Int]
+  height_lt: Int
+  height_lte: Int
+  height_not: Int
+  height_not_in: [Int]
+  size: Int
+  size_exists: Boolean
+  size_gt: Int
+  size_gte: Int
+  size_in: [Int]
+  size_lt: Int
+  size_lte: Int
+  size_not: Int
+  size_not_in: [Int]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+  url: String
+  url_contains: String
+  url_exists: Boolean
+  url_in: [String]
+  url_not: String
+  url_not_contains: String
+  url_not_in: [String]
+  width: Int
+  width_exists: Boolean
+  width_gt: Int
+  width_gte: Int
+  width_in: [Int]
+  width_lt: Int
+  width_lte: Int
+  width_not: Int
+  width_not_in: [Int]
+}
+
+type AssetLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum AssetOrder {
+  contentType_ASC
+  contentType_DESC
+  fileName_ASC
+  fileName_DESC
+  height_ASC
+  height_DESC
+  size_ASC
+  size_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  url_ASC
+  url_DESC
+  width_ASC
+  width_DESC
+}
+
+type ContentfulMetadata {
+  tags: [ContentfulTag]!
+}
+
+input ContentfulMetadataFilter {
+  tags: ContentfulMetadataTagsFilter
+  tags_exists: Boolean
+}
+
+input ContentfulMetadataTagsFilter {
+  id_contains_all: [String]
+  id_contains_none: [String]
+  id_contains_some: [String]
+}
+
+"""
+Represents a tag entity for finding and organizing content easily.
+    Find out more here: https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/content-tags
+"""
+type ContentfulTag {
+  id: String
+  name: String
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z,
+    compliant with the 'date-time' format outlined in section 5.6 of
+    the RFC 3339 profile of the ISO 8601 standard for representation
+    of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+The 'Dimension' type represents dimensions as whole numeric values between `1` and `4000`.
+"""
+scalar Dimension
+
+interface Entry {
+  contentfulMetadata: ContentfulMetadata!
+  sys: Sys!
+}
+
+type EntryCollection {
+  items: [Entry]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input EntryFilter {
+  AND: [EntryFilter]
+  OR: [EntryFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  sys: SysFilter
+}
+
+enum EntryOrder {
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""The 'HexColor' type represents color in `rgb:ffffff` string format."""
+scalar HexColor
+
+enum ImageFormat {
+  AVIF
+
+  """JPG image format."""
+  JPG
+
+  """
+  Progressive JPG format stores multiple passes of an image in progressively higher detail.
+          When a progressive image is loading, the viewer will first see a lower quality pixelated version which
+          will gradually improve in detail, until the image is fully downloaded. This is to display an image as
+          early as possible to make the layout look as designed.
+  """
+  JPG_PROGRESSIVE
+
+  """PNG image format"""
+  PNG
+
+  """
+  8-bit PNG images support up to 256 colors and weigh less than the standard 24-bit PNG equivalent.
+          The 8-bit PNG format is mostly used for simple images, such as icons or logos.
+  """
+  PNG8
+
+  """WebP image format."""
+  WEBP
+}
+
+enum ImageResizeFocus {
+  """Focus the resizing on the bottom."""
+  BOTTOM
+
+  """Focus the resizing on the bottom left."""
+  BOTTOM_LEFT
+
+  """Focus the resizing on the bottom right."""
+  BOTTOM_RIGHT
+
+  """Focus the resizing on the center."""
+  CENTER
+
+  """Focus the resizing on the largest face."""
+  FACE
+
+  """Focus the resizing on the area containing all the faces."""
+  FACES
+
+  """Focus the resizing on the left."""
+  LEFT
+
+  """Focus the resizing on the right."""
+  RIGHT
+
+  """Focus the resizing on the top."""
+  TOP
+
+  """Focus the resizing on the top left."""
+  TOP_LEFT
+
+  """Focus the resizing on the top right."""
+  TOP_RIGHT
+}
+
+enum ImageResizeStrategy {
+  """
+  Crops a part of the original image to fit into the specified dimensions.
+  """
+  CROP
+
+  """
+  Resizes the image to the specified dimensions, cropping the image if needed.
+  """
+  FILL
+
+  """Resizes the image to fit into the specified dimensions."""
+  FIT
+
+  """
+  Resizes the image to the specified dimensions, padding the image if needed.
+          Uses desired background color as padding color.
+  """
+  PAD
+
+  """
+  Resizes the image to the specified dimensions, changing the original aspect ratio if needed.
+  """
+  SCALE
+
+  """Creates a thumbnail from the image."""
+  THUMB
+}
+
+input ImageTransformOptions {
+  """
+  Desired background color, used with corner radius or `PAD` resize strategy.
+          Defaults to transparent (for `PNG`, `PNG8` and `WEBP`) or white (for `JPG` and `JPG_PROGRESSIVE`).
+  """
+  backgroundColor: HexColor
+
+  """
+  Desired corner radius in pixels.
+          Results in an image with rounded corners (pass `-1` for a full circle/ellipse).
+          Defaults to `0`. Uses desired background color as padding color,
+          unless the format is `JPG` or `JPG_PROGRESSIVE` and resize strategy is `PAD`, then defaults to white.
+  """
+  cornerRadius: Int
+
+  """Desired image format. Defaults to the original image format."""
+  format: ImageFormat
+
+  """Desired height in pixels. Defaults to the original image height."""
+  height: Dimension
+
+  """
+  Desired quality of the image in percents.
+          Used for `PNG8`, `JPG`, `JPG_PROGRESSIVE` and `WEBP` formats.
+  """
+  quality: Quality
+
+  """Desired resize focus area. Defaults to `CENTER`."""
+  resizeFocus: ImageResizeFocus
+
+  """Desired resize strategy. Defaults to `FIT`."""
+  resizeStrategy: ImageResizeStrategy
+
+  """Desired width in pixels. Defaults to the original image width."""
+  width: Dimension
+}
+
+"""
+Ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industry)
+"""
+type Industry implements Entry {
+  contentfulMetadata: ContentfulMetadata!
+  jobsCollection(limit: Int = 100, locale: String, order: [IndustryJobsCollectionOrder], preview: Boolean, skip: Int = 0, where: JobsFilter): IndustryJobsCollection
+  linkedFrom(allowedLocales: [String]): IndustryLinkingCollections
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+}
+
+type IndustryCollection {
+  items: [Industry]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input IndustryFilter {
+  AND: [IndustryFilter]
+  OR: [IndustryFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  jobs: cfJobsNestedFilter
+  jobsCollection_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+"""
+Nhóm ngành [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/industryGroup)
+"""
+type IndustryGroup implements Entry {
+  contentfulMetadata: ContentfulMetadata!
+  industriesCollection(limit: Int = 100, locale: String, order: [IndustryGroupIndustriesCollectionOrder], preview: Boolean, skip: Int = 0, where: IndustryFilter): IndustryGroupIndustriesCollection
+  linkedFrom(allowedLocales: [String]): IndustryGroupLinkingCollections
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+}
+
+type IndustryGroupCollection {
+  items: [IndustryGroup]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input IndustryGroupFilter {
+  AND: [IndustryGroupFilter]
+  OR: [IndustryGroupFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  industries: cfIndustryNestedFilter
+  industriesCollection_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+type IndustryGroupIndustriesCollection {
+  items: [Industry]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum IndustryGroupIndustriesCollectionOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type IndustryGroupLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum IndustryGroupOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type IndustryJobsCollection {
+  items: [Jobs]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum IndustryJobsCollectionOrder {
+  communication_ASC
+  communication_DESC
+  inner_ASC
+  inner_DESC
+  logic_ASC
+  logic_DESC
+  move_ASC
+  move_DESC
+  music_ASC
+  music_DESC
+  slug_ASC
+  slug_DESC
+  space_ASC
+  space_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+  word_ASC
+  word_DESC
+}
+
+type IndustryLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+  industryGroupCollection(limit: Int = 100, locale: String, order: [IndustryLinkingCollectionsIndustryGroupCollectionOrder], preview: Boolean, skip: Int = 0): IndustryGroupCollection
+}
+
+enum IndustryLinkingCollectionsIndustryGroupCollectionOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum IndustryOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+[See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/jobs)
+"""
+type Jobs implements Entry {
+  communication(locale: String): Int
+  contentfulMetadata: ContentfulMetadata!
+  inner(locale: String): Int
+  linkedFrom(allowedLocales: [String]): JobsLinkingCollections
+  logic(locale: String): Int
+  move(locale: String): Int
+  music(locale: String): Int
+  slug(locale: String): String
+  space(locale: String): Int
+  sys: Sys!
+  title(locale: String): String
+  word(locale: String): Int
+}
+
+type JobsCollection {
+  items: [Jobs]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input JobsFilter {
+  AND: [JobsFilter]
+  OR: [JobsFilter]
+  communication: Int
+  communication_exists: Boolean
+  communication_gt: Int
+  communication_gte: Int
+  communication_in: [Int]
+  communication_lt: Int
+  communication_lte: Int
+  communication_not: Int
+  communication_not_in: [Int]
+  contentfulMetadata: ContentfulMetadataFilter
+  inner: Int
+  inner_exists: Boolean
+  inner_gt: Int
+  inner_gte: Int
+  inner_in: [Int]
+  inner_lt: Int
+  inner_lte: Int
+  inner_not: Int
+  inner_not_in: [Int]
+  logic: Int
+  logic_exists: Boolean
+  logic_gt: Int
+  logic_gte: Int
+  logic_in: [Int]
+  logic_lt: Int
+  logic_lte: Int
+  logic_not: Int
+  logic_not_in: [Int]
+  move: Int
+  move_exists: Boolean
+  move_gt: Int
+  move_gte: Int
+  move_in: [Int]
+  move_lt: Int
+  move_lte: Int
+  move_not: Int
+  move_not_in: [Int]
+  music: Int
+  music_exists: Boolean
+  music_gt: Int
+  music_gte: Int
+  music_in: [Int]
+  music_lt: Int
+  music_lte: Int
+  music_not: Int
+  music_not_in: [Int]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  space: Int
+  space_exists: Boolean
+  space_gt: Int
+  space_gte: Int
+  space_in: [Int]
+  space_lt: Int
+  space_lte: Int
+  space_not: Int
+  space_not_in: [Int]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+  word: Int
+  word_exists: Boolean
+  word_gt: Int
+  word_gte: Int
+  word_in: [Int]
+  word_lt: Int
+  word_lte: Int
+  word_not: Int
+  word_not_in: [Int]
+}
+
+type JobsLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+  industryCollection(limit: Int = 100, locale: String, order: [JobsLinkingCollectionsIndustryCollectionOrder], preview: Boolean, skip: Int = 0): IndustryCollection
+}
+
+enum JobsLinkingCollectionsIndustryCollectionOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum JobsOrder {
+  communication_ASC
+  communication_DESC
+  inner_ASC
+  inner_DESC
+  logic_ASC
+  logic_DESC
+  move_ASC
+  move_DESC
+  music_ASC
+  music_DESC
+  slug_ASC
+  slug_DESC
+  space_ASC
+  space_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+  word_ASC
+  word_DESC
+}
+
+"""
+[See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedAnswer)
+"""
+type LinkedAnswer implements Entry {
+  contentfulMetadata: ContentfulMetadata!
+  id(locale: String): String
+  isEnd(locale: String): Boolean
+  linkedFrom(allowedLocales: [String]): LinkedAnswerLinkingCollections
+  nextQuestion(locale: String, preview: Boolean, where: LinkedQuestionFilter): LinkedQuestion
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+}
+
+type LinkedAnswerCollection {
+  items: [LinkedAnswer]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input LinkedAnswerFilter {
+  AND: [LinkedAnswerFilter]
+  OR: [LinkedAnswerFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  id: String
+  id_contains: String
+  id_exists: Boolean
+  id_in: [String]
+  id_not: String
+  id_not_contains: String
+  id_not_in: [String]
+  isEnd: Boolean
+  isEnd_exists: Boolean
+  isEnd_not: Boolean
+  nextQuestion: cfLinkedQuestionNestedFilter
+  nextQuestion_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+type LinkedAnswerLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+  linkedQuestionCollection(limit: Int = 100, locale: String, order: [LinkedAnswerLinkingCollectionsLinkedQuestionCollectionOrder], preview: Boolean, skip: Int = 0): LinkedQuestionCollection
+}
+
+enum LinkedAnswerLinkingCollectionsLinkedQuestionCollectionOrder {
+  id_ASC
+  id_DESC
+  isStart_ASC
+  isStart_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum LinkedAnswerOrder {
+  id_ASC
+  id_DESC
+  isEnd_ASC
+  isEnd_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+[See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/linkedQuestion)
+"""
+type LinkedQuestion implements Entry {
+  answersCollection(limit: Int = 100, locale: String, order: [LinkedQuestionAnswersCollectionOrder], preview: Boolean, skip: Int = 0, where: LinkedAnswerFilter): LinkedQuestionAnswersCollection
+  categories(locale: String): [String]
+  contentfulMetadata: ContentfulMetadata!
+  id(locale: String): String
+  isStart(locale: String): Boolean
+  linkedFrom(allowedLocales: [String]): LinkedQuestionLinkingCollections
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+}
+
+type LinkedQuestionAnswersCollection {
+  items: [LinkedAnswer]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum LinkedQuestionAnswersCollectionOrder {
+  id_ASC
+  id_DESC
+  isEnd_ASC
+  isEnd_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type LinkedQuestionCollection {
+  items: [LinkedQuestion]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input LinkedQuestionFilter {
+  AND: [LinkedQuestionFilter]
+  OR: [LinkedQuestionFilter]
+  answers: cfLinkedAnswerNestedFilter
+  answersCollection_exists: Boolean
+  categories_contains_all: [String]
+  categories_contains_none: [String]
+  categories_contains_some: [String]
+  categories_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  id: String
+  id_contains: String
+  id_exists: Boolean
+  id_in: [String]
+  id_not: String
+  id_not_contains: String
+  id_not_in: [String]
+  isStart: Boolean
+  isStart_exists: Boolean
+  isStart_not: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+type LinkedQuestionLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+  linkedAnswerCollection(limit: Int = 100, locale: String, order: [LinkedQuestionLinkingCollectionsLinkedAnswerCollectionOrder], preview: Boolean, skip: Int = 0): LinkedAnswerCollection
+}
+
+enum LinkedQuestionLinkingCollectionsLinkedAnswerCollectionOrder {
+  id_ASC
+  id_DESC
+  isEnd_ASC
+  isEnd_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum LinkedQuestionOrder {
+  id_ASC
+  id_DESC
+  isStart_ASC
+  isStart_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+"""
+The 'Quality' type represents quality as whole numeric values between `1` and `100`.
+"""
+scalar Quality
+
+type Query {
+  asset(id: String!, locale: String, preview: Boolean): Asset
+  assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, where: AssetFilter): AssetCollection
+  entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
+  industry(id: String!, locale: String, preview: Boolean): Industry
+  industryCollection(limit: Int = 100, locale: String, order: [IndustryOrder], preview: Boolean, skip: Int = 0, where: IndustryFilter): IndustryCollection
+  industryGroup(id: String!, locale: String, preview: Boolean): IndustryGroup
+  industryGroupCollection(limit: Int = 100, locale: String, order: [IndustryGroupOrder], preview: Boolean, skip: Int = 0, where: IndustryGroupFilter): IndustryGroupCollection
+  jobs(id: String!, locale: String, preview: Boolean): Jobs
+  jobsCollection(limit: Int = 100, locale: String, order: [JobsOrder], preview: Boolean, skip: Int = 0, where: JobsFilter): JobsCollection
+  linkedAnswer(id: String!, locale: String, preview: Boolean): LinkedAnswer
+  linkedAnswerCollection(limit: Int = 100, locale: String, order: [LinkedAnswerOrder], preview: Boolean, skip: Int = 0, where: LinkedAnswerFilter): LinkedAnswerCollection
+  linkedQuestion(id: String!, locale: String, preview: Boolean): LinkedQuestion
+  linkedQuestionCollection(limit: Int = 100, locale: String, order: [LinkedQuestionOrder], preview: Boolean, skip: Int = 0, where: LinkedQuestionFilter): LinkedQuestionCollection
+  question(id: String!, locale: String, preview: Boolean): Question
+  questionCollection(limit: Int = 100, locale: String, order: [QuestionOrder], preview: Boolean, skip: Int = 0, where: QuestionFilter): QuestionCollection
+}
+
+"""
+Create a question for user to answer [See type definition](https://app.contentful.com/spaces/142hlbhpx049/content_types/question)
+"""
+type Question implements Entry {
+  answers(locale: String): [String]
+  contentfulMetadata: ContentfulMetadata!
+  enable(locale: String): Boolean
+  linkedFrom(allowedLocales: [String]): QuestionLinkingCollections
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+  type(locale: String): String
+  want(locale: String): String
+}
+
+type QuestionCollection {
+  items: [Question]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input QuestionFilter {
+  AND: [QuestionFilter]
+  OR: [QuestionFilter]
+  answers_contains_all: [String]
+  answers_contains_none: [String]
+  answers_contains_some: [String]
+  answers_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  enable: Boolean
+  enable_exists: Boolean
+  enable_not: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+  type: String
+  type_contains: String
+  type_exists: Boolean
+  type_in: [String]
+  type_not: String
+  type_not_contains: String
+  type_not_in: [String]
+  want: String
+  want_contains: String
+  want_exists: Boolean
+  want_in: [String]
+  want_not: String
+  want_not_contains: String
+  want_not_in: [String]
+}
+
+type QuestionLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum QuestionOrder {
+  enable_ASC
+  enable_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+  type_ASC
+  type_DESC
+  want_ASC
+  want_DESC
+}
+
+type Sys {
+  environmentId: String!
+  firstPublishedAt: DateTime
+  id: String!
+  publishedAt: DateTime
+  publishedVersion: Int
+  spaceId: String!
+}
+
+input SysFilter {
+  firstPublishedAt: DateTime
+  firstPublishedAt_exists: Boolean
+  firstPublishedAt_gt: DateTime
+  firstPublishedAt_gte: DateTime
+  firstPublishedAt_in: [DateTime]
+  firstPublishedAt_lt: DateTime
+  firstPublishedAt_lte: DateTime
+  firstPublishedAt_not: DateTime
+  firstPublishedAt_not_in: [DateTime]
+  id: String
+  id_contains: String
+  id_exists: Boolean
+  id_in: [String]
+  id_not: String
+  id_not_contains: String
+  id_not_in: [String]
+  publishedAt: DateTime
+  publishedAt_exists: Boolean
+  publishedAt_gt: DateTime
+  publishedAt_gte: DateTime
+  publishedAt_in: [DateTime]
+  publishedAt_lt: DateTime
+  publishedAt_lte: DateTime
+  publishedAt_not: DateTime
+  publishedAt_not_in: [DateTime]
+  publishedVersion: Float
+  publishedVersion_exists: Boolean
+  publishedVersion_gt: Float
+  publishedVersion_gte: Float
+  publishedVersion_in: [Float]
+  publishedVersion_lt: Float
+  publishedVersion_lte: Float
+  publishedVersion_not: Float
+  publishedVersion_not_in: [Float]
+}
+
+input cfIndustryNestedFilter {
+  AND: [cfIndustryNestedFilter]
+  OR: [cfIndustryNestedFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  jobsCollection_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+input cfJobsNestedFilter {
+  AND: [cfJobsNestedFilter]
+  OR: [cfJobsNestedFilter]
+  communication: Int
+  communication_exists: Boolean
+  communication_gt: Int
+  communication_gte: Int
+  communication_in: [Int]
+  communication_lt: Int
+  communication_lte: Int
+  communication_not: Int
+  communication_not_in: [Int]
+  contentfulMetadata: ContentfulMetadataFilter
+  inner: Int
+  inner_exists: Boolean
+  inner_gt: Int
+  inner_gte: Int
+  inner_in: [Int]
+  inner_lt: Int
+  inner_lte: Int
+  inner_not: Int
+  inner_not_in: [Int]
+  logic: Int
+  logic_exists: Boolean
+  logic_gt: Int
+  logic_gte: Int
+  logic_in: [Int]
+  logic_lt: Int
+  logic_lte: Int
+  logic_not: Int
+  logic_not_in: [Int]
+  move: Int
+  move_exists: Boolean
+  move_gt: Int
+  move_gte: Int
+  move_in: [Int]
+  move_lt: Int
+  move_lte: Int
+  move_not: Int
+  move_not_in: [Int]
+  music: Int
+  music_exists: Boolean
+  music_gt: Int
+  music_gte: Int
+  music_in: [Int]
+  music_lt: Int
+  music_lte: Int
+  music_not: Int
+  music_not_in: [Int]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  space: Int
+  space_exists: Boolean
+  space_gt: Int
+  space_gte: Int
+  space_in: [Int]
+  space_lt: Int
+  space_lte: Int
+  space_not: Int
+  space_not_in: [Int]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+  word: Int
+  word_exists: Boolean
+  word_gt: Int
+  word_gte: Int
+  word_in: [Int]
+  word_lt: Int
+  word_lte: Int
+  word_not: Int
+  word_not_in: [Int]
+}
+
+input cfLinkedAnswerNestedFilter {
+  AND: [cfLinkedAnswerNestedFilter]
+  OR: [cfLinkedAnswerNestedFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  id: String
+  id_contains: String
+  id_exists: Boolean
+  id_in: [String]
+  id_not: String
+  id_not_contains: String
+  id_not_in: [String]
+  isEnd: Boolean
+  isEnd_exists: Boolean
+  isEnd_not: Boolean
+  nextQuestion_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+input cfLinkedQuestionNestedFilter {
+  AND: [cfLinkedQuestionNestedFilter]
+  OR: [cfLinkedQuestionNestedFilter]
+  answersCollection_exists: Boolean
+  categories_contains_all: [String]
+  categories_contains_none: [String]
+  categories_contains_some: [String]
+  categories_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  id: String
+  id_contains: String
+  id_exists: Boolean
+  id_in: [String]
+  id_not: String
+  id_not_contains: String
+  id_not_in: [String]
+  isStart: Boolean
+  isStart_exists: Boolean
+  isStart_not: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}

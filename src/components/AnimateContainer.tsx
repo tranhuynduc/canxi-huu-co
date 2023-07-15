@@ -1,0 +1,25 @@
+'use client'
+import { Layout } from 'antd'
+import React from 'react'
+import { twMerge } from 'tailwind-merge'
+import { motion } from "framer-motion"
+import Container from './Container'
+
+const AnimateContainer = ({ children, className }) => {
+  return (
+    <motion.div
+      initial={{ x: 300, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: 300, opacity: 0 }}
+      transition={{
+        type: 'spring',
+        stiffness: 260,
+        damping: 20,
+      }}
+    >
+      <Container className={className}>{children}</Container>
+    </motion.div>
+  )
+}
+
+export default AnimateContainer

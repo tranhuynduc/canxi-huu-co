@@ -1,0 +1,19 @@
+fragment IndustryEntity on Industry {
+  title
+  slug
+  linkedFrom {
+    industryGroupCollection {
+      items {
+        title
+        slug
+      }
+    }
+  }
+}
+query GetIndustries {
+  industryCollection {
+    items {
+      ...IndustryEntity
+    }
+  }
+}

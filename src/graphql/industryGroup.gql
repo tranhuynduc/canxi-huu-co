@@ -1,0 +1,11 @@
+fragment IndustryGroupEntity on IndustryGroup {
+  title
+  slug
+}
+query GetIndustryGroups {
+  industryGroupCollection {
+    items {
+      ...IndustryGroupEntity
+    }
+  }
+}

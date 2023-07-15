@@ -1,0 +1,6 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.format.enable": true,
+  "typescript.suggest.autoImports": true
+}

@@ -1,0 +1,12 @@
+{
+  "possibleTypes": {
+    "Entry": [
+      "Industry",
+      "IndustryGroup",
+      "Jobs",
+      "LinkedAnswer",
+      "LinkedQuestion",
+      "Question"
+    ]
+  }
+}
