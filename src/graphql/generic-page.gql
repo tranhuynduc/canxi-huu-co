@@ -1,0 +1,33 @@
+query GetGenericPages($slug: String!) {
+  genericPageCollection(where: { slug: $slug }, limit: 1) {
+    items {
+      title
+      slug
+      body {
+        json
+        links {
+          entries {
+            block {
+              __typename
+              sys {
+                id
+              }
+              __typename
+              ... on GenericPage {
+                title
+                slug
+              }
+            }
+          }
+          assets {
+            block {
+              sys {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

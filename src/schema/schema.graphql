@@ -199,6 +199,94 @@ enum EntryOrder {
   sys_publishedVersion_DESC
 }
 
+"""
+[See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/genericPage)
+"""
+type GenericPage implements Entry {
+  body(locale: String): GenericPageBody
+  contentfulMetadata: ContentfulMetadata!
+  linkedFrom(allowedLocales: [String]): GenericPageLinkingCollections
+  slug(locale: String): String
+  sys: Sys!
+  title(locale: String): String
+}
+
+type GenericPageBody {
+  json: JSON!
+  links: GenericPageBodyLinks!
+}
+
+type GenericPageBodyAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type GenericPageBodyEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type GenericPageBodyLinks {
+  assets: GenericPageBodyAssets!
+  entries: GenericPageBodyEntries!
+  resources: GenericPageBodyResources!
+}
+
+type GenericPageBodyResources {
+  block: [ResourceLink!]!
+}
+
+type GenericPageCollection {
+  items: [GenericPage]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input GenericPageFilter {
+  AND: [GenericPageFilter]
+  OR: [GenericPageFilter]
+  body_contains: String
+  body_exists: Boolean
+  body_not_contains: String
+  contentfulMetadata: ContentfulMetadataFilter
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+type GenericPageLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+enum GenericPageOrder {
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
 """The 'HexColor' type represents color in `rgb:ffffff` string format."""
 scalar HexColor
 
@@ -331,6 +419,11 @@ input ImageTransformOptions {
 }
 
 """
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
 Sản phẩm [See type definition](https://app.contentful.com/spaces/0zxaizpkw134/content_types/product)
 """
 type Product implements Entry {
@@ -407,8 +500,20 @@ type Query {
   asset(id: String!, locale: String, preview: Boolean): Asset
   assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, where: AssetFilter): AssetCollection
   entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
+  genericPage(id: String!, locale: String, preview: Boolean): GenericPage
+  genericPageCollection(limit: Int = 100, locale: String, order: [GenericPageOrder], preview: Boolean, skip: Int = 0, where: GenericPageFilter): GenericPageCollection
   product(id: String!, locale: String, preview: Boolean): Product
   productCollection(limit: Int = 100, locale: String, order: [ProductOrder], preview: Boolean, skip: Int = 0, where: ProductFilter): ProductCollection
+}
+
+type ResourceLink {
+  sys: ResourceSys!
+}
+
+type ResourceSys {
+  linkType: String!
+  type: String!
+  urn: String!
 }
 
 type Sys {
