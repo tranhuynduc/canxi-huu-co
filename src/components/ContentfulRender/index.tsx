@@ -42,7 +42,7 @@ function renderOptions(links?: Links, options?: { theme: 'dark' | 'light' }): Op
       [BLOCKS.PARAGRAPH]: (node: Node, children: ReactNode) => (
         <Typography
           className={clsx(
-            'text-dark-grey-2 text-md mb-6 gap-x-1 leading-6 md:text-base md:leading-7',
+            'whitespace-break-spaces text-dark-grey-2 text-md mb-6 gap-x-1 leading-6 md:text-base md:leading-7',
             theme === 'light' ? 'text-dark-grey-2' : 'text-white',
           )}
         >
@@ -118,8 +118,7 @@ function renderOptions(links?: Links, options?: { theme: 'dark' | 'light' }): Op
       },
       [INLINES.ENTRY_HYPERLINK]: (node: Node, children: ReactNode) => {
         const entry = entryMap.get(node.data.target.sys.id)
-        console.log('node', node)
-        console.log('node.data.target.sys.id', node.data.target.sys.id)
+
         return (
           <Link href={node.data.uri || ''} className="text-red underline">
             {children}
