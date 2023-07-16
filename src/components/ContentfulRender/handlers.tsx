@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
-import Link from "next/link"
-import { Asset, GenericPage } from "../../graphql/type.graphql"
+import Link from 'next/link'
+import { GenericPage } from '../../graphql/type.graphql'
 
 type Data = Required<GenericPage>
 
@@ -12,9 +12,14 @@ type TypenameMapper = {
   ) => React.ReactNode
 }
 
-
 export const typenameComponentMap: TypenameMapper = {
   GenericPage: (data) => {
-    return <Link href={`/${data.slug}`}>{data.title}</Link>
-  }
+    return (
+      <div className="flex-1 w-full my-2">
+        <Link className="hover:text-gray-400 transition" href={`/${data.slug}`}>
+          {data.title}
+        </Link>
+      </div>
+    )
+  },
 }

@@ -11,6 +11,11 @@ export const routes = [
     label: 'Sản phẩm',
     key: 'san-pham',
     href: ROUTES.products,
+  },
+  {
+    label: 'Q&A',
+    key: 'q-and-a',
+    href: ROUTES.qAndA
   }
 ]
 
