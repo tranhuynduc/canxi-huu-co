@@ -3,6 +3,11 @@ import * as Types from './type.graphql';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
+export type GetProductsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetProductsQueryResponse = { __typename?: 'Query', productCollection?: { __typename?: 'ProductCollection', items: Array<{ __typename?: 'Product', title?: string, description?: string, image?: { __typename?: 'Asset', url?: string } }> } };
+
 
 export const GetProductsDocument = gql`
     query GetProducts {
@@ -44,7 +49,3 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQueryResponse, GetProductsQueryVariables>;
-export type GetProductsQueryVariables = Types.Exact<{ [key: string]: never; }>;
-
-
-export type GetProductsQueryResponse = { __typename?: 'Query', productCollection?: { __typename?: 'ProductCollection', items: Array<{ __typename?: 'Product', title?: string, description?: string, image?: { __typename?: 'Asset', url?: string } }> } };

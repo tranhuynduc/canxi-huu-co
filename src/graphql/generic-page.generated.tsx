@@ -3,6 +3,13 @@ import * as Types from './type.graphql';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
+export type GetGenericPagesQueryVariables = Types.Exact<{
+  slug: Types.Scalars['String'];
+}>;
+
+
+export type GetGenericPagesQueryResponse = { __typename?: 'Query', genericPageCollection?: { __typename?: 'GenericPageCollection', items: Array<{ __typename?: 'GenericPage', title?: string, slug?: string, body?: { __typename?: 'GenericPageBody', json: any, links: { __typename?: 'GenericPageBodyLinks', entries: { __typename?: 'GenericPageBodyEntries', block: Array<{ __typename: 'GenericPage', title?: string, slug?: string, sys: { __typename?: 'Sys', id: string } } | { __typename: 'Product', sys: { __typename?: 'Sys', id: string } }> }, assets: { __typename?: 'GenericPageBodyAssets', block: Array<{ __typename?: 'Asset', sys: { __typename?: 'Sys', id: string } }> } } } }> } };
+
 
 export const GetGenericPagesDocument = gql`
     query GetGenericPages($slug: String!) {
@@ -67,9 +74,3 @@ export function useGetGenericPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type GetGenericPagesQueryHookResult = ReturnType<typeof useGetGenericPagesQuery>;
 export type GetGenericPagesLazyQueryHookResult = ReturnType<typeof useGetGenericPagesLazyQuery>;
 export type GetGenericPagesQueryResult = Apollo.QueryResult<GetGenericPagesQueryResponse, GetGenericPagesQueryVariables>;
-export type GetGenericPagesQueryVariables = Types.Exact<{
-  slug: Types.Scalars['String'];
-}>;
-
-
-export type GetGenericPagesQueryResponse = { __typename?: 'Query', genericPageCollection?: { __typename?: 'GenericPageCollection', items: Array<{ __typename?: 'GenericPage', title?: string, slug?: string, body?: { __typename?: 'GenericPageBody', json: any, links: { __typename?: 'GenericPageBodyLinks', entries: { __typename?: 'GenericPageBodyEntries', block: Array<{ __typename: 'GenericPage', title?: string, slug?: string, sys: { __typename?: 'Sys', id: string } } | { __typename: 'Product', sys: { __typename?: 'Sys', id: string } }> }, assets: { __typename?: 'GenericPageBodyAssets', block: Array<{ __typename?: 'Asset', sys: { __typename?: 'Sys', id: string } }> } } } }> } };
