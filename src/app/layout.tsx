@@ -6,6 +6,7 @@ export const metadata = {
   description: 'Chỉ số hạnh phúc',
 }
 
+export const revalidate = 60
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

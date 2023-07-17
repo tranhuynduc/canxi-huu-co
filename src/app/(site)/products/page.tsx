@@ -7,6 +7,9 @@ import {
 import { getClient } from '../../../services/graphql'
 import _ from 'lodash'
 import ProductList from './Inner';
+
+export const revalidate = 10
+
 const ProductsPage = async () => {
   const response = await getClient().query<GetProductsQueryResponse, GetProductsQueryVariables>({
     query: GetProductsDocument,

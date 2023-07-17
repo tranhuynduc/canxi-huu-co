@@ -4,6 +4,7 @@ import AnimateContainer from '../../components/AnimateContainer'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const revalidate = 30
 export default function Layout({ children }) {
   return (
     <main>
