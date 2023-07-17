@@ -16,6 +16,11 @@ const GenericPage = async ({ params }: { params: { slug: string[] } }) => {
       slug,
     },
     fetchPolicy: 'no-cache',
+    context: {
+      fetchOptions: {
+        next: { revalidate: 10 },
+      },
+    },
   })
 
   const page = response.data?.genericPageCollection?.items?.[0]
