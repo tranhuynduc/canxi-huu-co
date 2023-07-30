@@ -13,23 +13,24 @@ const config: CodegenConfig = {
     },
   },
   ignoreNoDocuments: true,
-  documents: ['./src/graphql/**/*.{gql,graphql}'],
+  documents: ['./src/codegen/**/*.{gql,graphql}'],
   generates: {
-    './src/graphql/type.graphql.ts': {
-      plugins: ['typescript'],
+    './src/codegen/graphql/type.graphql.ts': {
+      plugins: ['typescript', 'typescript-operations'],
+      documents: ['./src/**/*.graphql'],
       config: {
         maybeValue: 'T',
       },
     },
-    './src/schema/graphql.schema.json': {
+    './src/codegen/schema/graphql.schema.json': {
       plugins: ['introspection'],
       config: {
         maybeValue: 'T',
       },
     },
-    './src/graphql/': {
+    './src/codegen/graphql/': {
       preset: 'near-operation-file-preset',
-      plugins: ['typescript-react-apollo', 'typescript-operations'],
+      plugins: ['typescript-operations', 'typescript-react-query'],
 
       presetConfig: {
         baseTypesPath: 'type.graphql.ts',
@@ -38,21 +39,28 @@ const config: CodegenConfig = {
       config: {
         operationResultSuffix: 'Response',
         maybeValue: 'T',
+        exposeQueryKeys: true,
+        exposeFetcher: true,
+        rawRequest: false,
+        inlineFragmentTypes: 'combine',
+        skipTypename: false,
+        exportFragmentSpreadSubTypes: true,
+        dedupeFragments: true,
+        preResolveTypes: true,
+        withHooks: true,
+        fetcher: './customFetcher#customFetcher',
       },
     },
-    './src/schema/schema.graphql': {
+    './src/codegen/schema/schema.graphql': {
       plugins: ['schema-ast'],
       config: {
         maybeValue: 'T',
       },
     },
-    './src/apollo/possibleTypes.json': {
-      plugins: ['fragment-matcher'],
-      config: {
-        maybeValue: 'T',
-      },
-    },
   },
+  // hooks: {
+  //   afterOneFileWrite: ['prettier --write'],
+  // },
 }
 
 export default config

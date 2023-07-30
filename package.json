@@ -14,6 +14,7 @@
     "@apollo/client": "^3.7.15",
     "@contentful/rich-text-react-renderer": "^15.17.0",
     "@firebase/firestore": "^3.13.0",
+    "@tanstack/react-query": "^4.32.0",
     "antd": "^5.5.2",
     "chart.js": "^4.3.0",
     "clsx": "^2.0.0",

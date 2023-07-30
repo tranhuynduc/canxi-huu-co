@@ -1,4 +1,4 @@
-query GetProducts {
+x`query GetProducts {
   productCollection {
     items {
       title
