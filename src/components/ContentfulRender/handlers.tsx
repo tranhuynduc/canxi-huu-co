@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from 'next/link'
-import { GenericPage } from '../../graphql/type.graphql'
+import { GenericPage } from '../../codegen/graphql/type.graphql'
 
 type Data = Required<GenericPage>
 
